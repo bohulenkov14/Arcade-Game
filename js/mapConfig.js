@@ -4,7 +4,7 @@ var MapConfig = function(rowsNum, colsNum, rowsSprites) {
   this.rowsSprites = rowsSprites;
 };
 
-var currentMapConfig = new MapConfig(8, 8, [
+var currentMapConfig = new MapConfig(8, 7, [
                 'images/water-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
                 'images/stone-block.png',   // Row 2 of 3 of stone
