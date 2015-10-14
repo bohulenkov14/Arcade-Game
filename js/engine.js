@@ -91,10 +91,12 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
+        currentLevel.enemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        currentLevel.players.forEach(function(enemy) {
+            player.update();
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -104,6 +106,9 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render() {
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
@@ -142,18 +147,22 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
 
-        allEnemies.forEach(function(enemy) {
+
+        currentLevel.enemies.forEach(function(enemy) {
             enemy.render();
         });
 
-        player.render();
+        currentLevel.players.forEach(function(player) {
+            player.render();
+        });
 
-        ctx.clearRect(0, 0, ctx.canvas.width, 45);
-        ctx.font = "30px Comic Sans MS";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "left";
-        ctx.fillText("Score: " + currentScore, 0, 40);
-        bonus.render();
+        currentLevel.bonuses.forEach(function(bonus) {
+            bonus.render();
+        });
+
+        currentLevel.guiObjects.forEach(function(guiObject) {
+            guiObject.render();
+        });
     }
 
     /* This function does nothing but it could have been a good place to
