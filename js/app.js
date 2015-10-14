@@ -89,16 +89,20 @@ Player.prototype.movePlayer = function(keyCode) {
     var xStep = 101;
     switch(keyCode) {
         case 'up':
-            this.y -= yStep;
+            if (this.y - yStep + 50 > 0)
+                this.y -= yStep;
             break;
         case 'down':
-            this.y += yStep;
+            if (this.y + yStep + 171 < ctx.canvas.height)
+                this.y += yStep;
             break;
         case 'left':
-            this.x -= xStep;
+            if (this.x - xStep >= 0)
+                this.x -= xStep;
             break;
         case 'right':
-            this.x += xStep;
+            if (this.x + xStep + 101 <= ctx.canvas.width)
+                this.x += xStep;
             break;
         default:
             break;
@@ -137,7 +141,7 @@ document.addEventListener('keyup', function(e) {
 
 var placePlayerToStartPosition = function() {
     player.spawnX = Math.floor(currentMapConfig.colsNum / 2) * 101;
-    player.spawnY = currentMapConfig.rowsNum * 83 - 100;
+    player.spawnY = currentMapConfig.rowsNum * 83 - 95;
     player.x = player.spawnX;
     player.y = player.spawnY;
 };
