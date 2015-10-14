@@ -82,6 +82,11 @@ Player.prototype.render = function() {
 
 Player.prototype.handleInput = function(keyCode) {
     this.movePlayer(keyCode);
+    if (this.checkBonusCollision()) {
+        currentScore += 100;
+        placeBonusOnMap();
+    }
+
 };
 
 Player.prototype.movePlayer = function(keyCode) {
@@ -89,11 +94,11 @@ Player.prototype.movePlayer = function(keyCode) {
     var xStep = 101;
     switch(keyCode) {
         case 'up':
-            if (this.y - yStep + 50 > 0)
+            if (this.y - yStep + 100 > 0)
                 this.y -= yStep;
             break;
         case 'down':
-            if (this.y + yStep + 171 < ctx.canvas.height)
+            if (this.y + yStep + 221 < ctx.canvas.height)
                 this.y += yStep;
             break;
         case 'left':
@@ -109,6 +114,35 @@ Player.prototype.movePlayer = function(keyCode) {
     }
 };
 
+Player.prototype.checkBonusCollision = function() {
+    if  ((
+               (this.x <= bonus.x + 81 && this.x >= bonus.x)
+            || (this.x + 81<= bonus.x + 81 && this.x + 81>= bonus.x)
+        )
+        &&
+        (
+               (this.y <= bonus.y + 63 && this.y >= bonus.y)
+            || (this.y + 63 <= bonus.y + 63 && this.y + 63 >= bonus.y)
+        )) {
+        return true;
+    }
+    else
+        return false;
+};
+
+var Bonus = function() {
+    this.x = -1000;
+    this.y = -1000;
+    this.sprite = 'images/Star.png';
+};
+
+Bonus.prototype.update = function(dt) {
+
+};
+
+Bonus.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 
 // Now instantiate your objects.
@@ -123,6 +157,7 @@ var allEnemies =
         new Enemy(5)
     ];
 var player = new Player();
+var bonus = new Bonus();
 
 
 // This listens for key presses and sends the keys to your
@@ -158,7 +193,22 @@ var placeEnemyToStartPosition = function(enemy) {
     enemy.setNewMovementSpeed();
 };
 
+var placeBonusOnMap = function() {
+
+    var cols = currentMapConfig.colsNum;
+
+    var xTile = Math.floor(Math.random() * (currentMapConfig.colsNum - 0));
+    var yTile = Math.floor(Math.random() * (currentMapConfig.rowsNum-2 - 1) + 1);
+
+    console.log('xTile: ' + xTile);
+    console.log('yTile: ' + yTile);
+    bonus.x = xTile * 101;
+    bonus.y = yTile * 83  - 10;
+
+};
+
 Resources.onReady(function() {
     allEnemies.forEach(placeEnemyToStartPosition);
     placePlayerToStartPosition();
+    placeBonusOnMap();
 });

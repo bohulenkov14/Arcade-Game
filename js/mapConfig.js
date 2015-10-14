@@ -14,3 +14,5 @@ var currentMapConfig = new MapConfig(8, 7, [
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ]);
+
+var currentScore = 0;

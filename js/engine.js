@@ -26,7 +26,7 @@ var Engine = (function(global) {
         lastTime;
 
     canvas.width = currentMapConfig.colsNum * 101;
-    canvas.height = currentMapConfig.rowsNum * 80 + 50 + 61;
+    canvas.height = currentMapConfig.rowsNum * 80 + 50 + 61 + 50;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -141,11 +141,19 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
+
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
 
         player.render();
+
+        ctx.clearRect(0, 0, ctx.canvas.width, 45);
+        ctx.font = "30px Comic Sans MS";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "left";
+        ctx.fillText("Score: " + currentScore, 0, 40);
+        bonus.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -165,7 +173,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 
