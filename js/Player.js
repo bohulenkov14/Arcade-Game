@@ -32,10 +32,13 @@ Player.prototype.handleInput = function(keyCode) {
   caller.movePlayer(keyCode);
   gameState.currentLevel.bonuses.forEach(function(bonus) {
     if (caller.checkBonusCollision(bonus)) {
-        currentScore += 100;
+        gameState.score += 100;
         placeBonusOnMap(bonus);
     }
   });
+
+  if (caller.y < 33)
+    gameState.changeState("WinScreen");
 };
 
 Player.prototype.movePlayer = function(keyCode) {

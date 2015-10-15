@@ -13,6 +13,5 @@ GameState.prototype.changeState = function(newState) {
   this.currentState = newState;
   this.currentLevel = this.gameStateLevelDictionary[newState];
   this.lastButttonClickInteractionBegan = new GuiObject(0,0,"");
-  this.score = 0;
   this.currentLevel.load();
 };

@@ -1,10 +1,10 @@
 //=========================================
 //Basic GUI Object class
 //=========================================
-var GuiObject = function(x, y, text) {
+var GuiObject = function(x, y, textGetter) {
   this.x = x;
   this.y = y;
-  this.text = text;
+  this.textGetter = textGetter;
 };
 
 //basic dummy method for handling mousedown events for gui objects
@@ -20,8 +20,8 @@ GuiObject.prototype.handleMouseUp = function(event) {
 //=========================================
 //GUI Label class
 //=========================================
-var GuiLabel = function(x, y, text) {
-  GuiObject.call(this, x, y, text);
+var GuiLabel = function(x, y, textGetter) {
+  GuiObject.call(this, x, y, textGetter);
 };
 
 //inheritance
@@ -33,14 +33,14 @@ GuiLabel.prototype.render = function() {
   ctx.font = "45px Comic Sans MS";
   ctx.fillStyle = "black";
   ctx.textAlign = "center";
-  ctx.fillText(this.text, this.x, this.y);
+  ctx.fillText(this.textGetter(), this.x, this.y);
 };
 
 //=========================================
 //GUI Button class
 //=========================================
-var GuiButton = function(x, y, w, h, text, buttonColor, buttonPushedColor, clickHandler) {
-  GuiObject.call(this, x, y, text);
+var GuiButton = function(x, y, w, h, textGetter, buttonColor, buttonPushedColor, clickHandler) {
+  GuiObject.call(this, x, y, textGetter);
   this.buttonColor = buttonColor;
   this.buttonPushedColor = buttonPushedColor;
   this.currentColor = buttonColor;
@@ -65,7 +65,7 @@ GuiButton.prototype.render = function() {
   ctx.font = "45px Comic Sans MS";
   ctx.fillStyle = "black";
   ctx.textAlign = "center";
-  ctx.fillText(this.text, this.x, this.y+60);
+  ctx.fillText(this.textGetter(), this.x, this.y+60);
 };
 
 GuiButton.prototype.handleMouseDown = function(event) {
