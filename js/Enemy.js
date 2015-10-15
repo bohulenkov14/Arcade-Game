@@ -26,7 +26,7 @@ Enemy.prototype.update = function(dt) {
   }
   gameState.currentLevel.players.forEach(function(player) {
     if (caller.checkPlayerCollision(player)) {
-        placePlayerToStartPosition(player);
+        gameState.changeState("LostScreen");
     }
   });
 };

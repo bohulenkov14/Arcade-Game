@@ -17,11 +17,11 @@ var guiLevel = new Level(
   [],
   [],
   [],
-  [new GuiButton(350, 250, 350, 90, 'New Game', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
+  [new GuiButton(350, 250, 400, 90, 'New Game', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
     function(){
       gameState.changeState("Game");
     }),
-   new GuiButton(350, 350, 350, 90, 'Choose Character', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
+   new GuiButton(350, 350, 400, 90, 'Choose Character', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
     function(){
       gameState.changeState("ChooseCharacter");
     })]
@@ -46,11 +46,28 @@ var chooseCharacter = new Level(
    ]
   );
 
+var lostScreen = new Level(
+  [],
+  [],
+  [],
+  [new GuiLabel(350, 310, 'You lost! Want to try again ?'),
+   new GuiButton(250, 410, 100, 90, 'Yes', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
+    function(){
+      gameState.changeState("Game");
+    }),
+   new GuiButton(450, 410, 100, 90, 'No', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
+    function(){
+      gameState.changeState("MainMenu");
+    }),
+   ]
+  );
+
 //GameStates to Levels mapping
 var gameStateLevelDictionary = {
   "MainMenu": guiLevel,
   "Game": gameLevel,
-  "ChooseCharacter": chooseCharacter
+  "ChooseCharacter": chooseCharacter,
+  "LostScreen": lostScreen
 };
 
 //Game state
