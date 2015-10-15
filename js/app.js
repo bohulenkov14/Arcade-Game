@@ -1,12 +1,15 @@
 
 //levels
+
+var player = new Player();
+
 var gameLevel = new Level(
   [ new Enemy(1),
     new Enemy(2),
     new Enemy(3),
     new Enemy(4),
     new Enemy(5) ],
-  [new Player()],
+  [player],
   [new Bonus()],
   []);
 
@@ -14,19 +17,40 @@ var guiLevel = new Level(
   [],
   [],
   [],
-  [new GuiButton(350, 250, 250, 80, 'New Game', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
+  [new GuiButton(350, 250, 350, 90, 'New Game', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
     function(){
       gameState.changeState("Game");
     }),
-   new GuiButton(350, 350, 250, 80, 'Choose Map', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
+   new GuiButton(350, 350, 350, 90, 'Choose Character', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
     function(){
-
+      gameState.changeState("ChooseCharacter");
     })]
   );
 
+var chooseCharacter = new Level(
+  [],
+  [player],
+  [],
+  [new GuiButton(250, 410, 90, 90, '<-', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
+    function(){
+      player.selectPrevPlayerModel();
+    }),
+   new GuiButton(450, 410, 90, 90, '->', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
+    function(){
+      player.selectNextPlayerModel();
+    }),
+   new GuiButton(350, 550, 180, 90, 'OK', 'rgba(255,255,255,0.5)', 'rgba(0,255,0,0.5)',
+    function(){
+      gameState.changeState("MainMenu");
+    }),
+   ]
+  );
+
+//GameStates to Levels mapping
 var gameStateLevelDictionary = {
   "MainMenu": guiLevel,
-  "Game": gameLevel
+  "Game": gameLevel,
+  "ChooseCharacter": chooseCharacter
 };
 
 //Game state
@@ -40,10 +64,12 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     }
+    if (gameState.currentState === "Game") {
+        gameState.currentLevel.players.forEach(function(player) {
+          player.handleInput(allowedKeys[e.keyCode]);
+        });
+    }
 
-    gameState.currentLevel.players.forEach(function(player) {
-      player.handleInput(allowedKeys[e.keyCode]);
-    });
 });
 
 document.addEventListener('mousedown', function(e) {
@@ -57,6 +83,7 @@ document.addEventListener('mouseup', function(e) {
 });
 
 
+//Game loader
 Resources.onReady(function() {
   gameState.changeState("MainMenu");
 });

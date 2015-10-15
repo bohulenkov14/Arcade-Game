@@ -55,9 +55,12 @@ GuiButton.prototype.constructor = GuiButton;
 
 //methods
 GuiButton.prototype.render = function() {
-  ctx.font = "45px Comic Sans MS";
+
   ctx.fillStyle = this.currentColor;
   ctx.fillRect(this.x-this.w/2, this.y, this.w, this.h);
+
+  ctx.strokeStyle = "black";
+  ctx.strokeRect(this.x-this.w/2, this.y, this.w, this.h);
 
   ctx.font = "45px Comic Sans MS";
   ctx.fillStyle = "black";
