@@ -91,10 +91,10 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        currentLevel.enemies.forEach(function(enemy) {
+        gameState.currentLevel.enemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        currentLevel.players.forEach(function(enemy) {
+        gameState.currentLevel.players.forEach(function(player) {
             player.update();
         });
     }
@@ -148,19 +148,19 @@ var Engine = (function(global) {
          */
 
 
-        currentLevel.enemies.forEach(function(enemy) {
+        gameState.currentLevel.enemies.forEach(function(enemy) {
             enemy.render();
         });
 
-        currentLevel.players.forEach(function(player) {
+        gameState.currentLevel.players.forEach(function(player) {
             player.render();
         });
 
-        currentLevel.bonuses.forEach(function(bonus) {
+        gameState.currentLevel.bonuses.forEach(function(bonus) {
             bonus.render();
         });
 
-        currentLevel.guiObjects.forEach(function(guiObject) {
+        gameState.currentLevel.guiObjects.forEach(function(guiObject) {
             guiObject.render();
         });
     }
