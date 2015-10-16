@@ -1,6 +1,6 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
-
-for self-checking their submission.
+1. For running game open index.html in browser
+2. For starting new game click 'New Game' button in game main menu
+3. For selecting your character model click 'Choose Character' button in game main menu
