@@ -94,9 +94,6 @@ var Engine = (function(global) {
         gameState.currentLevel.enemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        gameState.currentLevel.players.forEach(function(player) {
-            player.update();
-        });
     }
 
     /* This function initially draws the "game level", it will then call
